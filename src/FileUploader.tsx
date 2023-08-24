@@ -17,6 +17,7 @@ interface Props {
   dsId: number;
   bucket: string;
   region: string;
+  endpoint: string;
   prefix: string;
   refresh: () => void;
 }
@@ -90,6 +91,9 @@ export const FileUploader: FC<Props> = props => {
           region: props.region,
           credentials: credentials,
         });
+        if (props.endpoint !== '') {
+          AWS.config.update({ configservice: { endpoint: props.endpoint } });
+        }
         setProgress({
           busy: true,
           message: 'Authenticating',

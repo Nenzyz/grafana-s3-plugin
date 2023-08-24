@@ -18,6 +18,7 @@ type S3DataSource struct {
 		Bucket    string `json:"bucket" binding:"Required"`
 		Region    string `json:"region" binding:"Required"`
 		AccessKey string `json:"accessKey"`
+		Endpoint  string `json:"endpoint"`
 	}
 }
 
@@ -27,6 +28,7 @@ type Query struct {
 	Format      string `json:"format"`
 	Compression string `json:"compression"`
 	Query       string `json:"query"`
+	Endpoint    string `json:"endpoint"`
 
 	CSVAllowQuotedRecordDelimiter bool   `json:"csv_allow_quoted_record_delimiter"`
 	CSVComments                   string `json:"csv_comments"`

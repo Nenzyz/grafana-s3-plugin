@@ -10,6 +10,7 @@ import (
 	"github.com/grafana/grafana-plugin-sdk-go/backend/datasource"
 	"github.com/grafana/grafana-plugin-sdk-go/backend/instancemgmt"
 	"github.com/grafana/grafana-plugin-sdk-go/data"
+	"github.com/grafana/grafana-plugin-sdk-go/backend/log"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
@@ -37,6 +38,12 @@ func newDatasource() datasource.ServeOpts {
 func (ds *S3DataSource) authenticate(ctx context.Context, req *backend.QueryDataRequest) error {
 	config := aws.Config{
 		Region: aws.String(ds.settings.Region),
+		Endpoint: aws.String(ds.settings.Endpoint),
+		S3ForcePathStyle: aws.Bool(true),
+		LogLevel: aws.LogLevel(aws.LogDebugWithHTTPBody | aws.LogDebugWithSigning),
+		Logger: aws.LoggerFunc(func(args ...interface{}) {
+			log.DefaultLogger.Debug("", args...)
+		}),
 	}
 
 	if ds.settings.AccessKey != "" {
@@ -142,6 +149,12 @@ func (ds *S3DataSource) CheckHealth(ctx context.Context, req *backend.CheckHealt
 
 	config := aws.Config{
 		Region: aws.String(ds.settings.Region),
+		Endpoint: aws.String(ds.settings.Endpoint),
+		S3ForcePathStyle: aws.Bool(true),
+		LogLevel: aws.LogLevel(aws.LogDebugWithHTTPBody | aws.LogDebugWithSigning),
+		Logger: aws.LoggerFunc(func(args ...interface{}) {
+			log.DefaultLogger.Debug("", args...)
+		}),
 	}
 
 	if ds.settings.AccessKey != "" {

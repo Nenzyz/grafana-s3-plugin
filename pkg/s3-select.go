@@ -170,6 +170,7 @@ func s3SelectBase(ctx context.Context, svc *s3.S3, params *s3.SelectObjectConten
 	}
 
 	payload = append(payload[:len(payload) - 1], ']')
+	log.DefaultLogger.Debug("S3Select", "payload", payload)
 	df := qframe.ReadJSON(bytes.NewReader(payload))
 
 	return &df, nil
@@ -186,7 +187,9 @@ func s3SelectQuery(ctx context.Context, svc *s3.S3, params *s3.SelectObjectConte
 	defer reader.Close()
 	go func() {
 		err := df_wo_types.ToCSV(writer)
-		log.DefaultLogger.Error("S3Select", "df.ToCSV", err.Error())
+		if err != nil {
+			log.DefaultLogger.Error("S3Select", "df.ToCSV", err.Error())
+		}
 		writer.Close()
 	}()
 	df := qframe.ReadCSV(reader)

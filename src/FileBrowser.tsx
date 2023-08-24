@@ -10,6 +10,7 @@ interface Props {
   dsId: number;
   bucket: string;
   region: string;
+  endpoint: string;
 }
 
 interface State {
@@ -273,7 +274,7 @@ export class FileBrowser extends PureComponent<Props, State> {
   };
 
   render() {
-    const { orgId, dsId, bucket, region } = this.props;
+    const { orgId, dsId, bucket, region, endpoint } = this.props;
     const { explore, prefix, dirty, files, hints } = this.state;
 
     const crumbs = this.state.prefix.split('/').map((part, i) => {
@@ -338,6 +339,7 @@ export class FileBrowser extends PureComponent<Props, State> {
                   dsId={dsId}
                   bucket={bucket}
                   region={region}
+                  endpoint={endpoint}
                   prefix={prefix}
                   refresh={this.refresh.bind(this)}
                 />

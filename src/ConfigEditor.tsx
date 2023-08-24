@@ -80,6 +80,17 @@ export class ConfigEditor extends PureComponent<Props, State> {
       <div className="gf-form-group" key="configure">
         <div className="gf-form">
           <FormField
+            label="Endpoint"
+            labelWidth={10}
+            inputWidth={20}
+            onChange={this.onOptionChange('endpoint')}
+            value={jsonData.endpoint || ''}
+            placeholder="Endpoint"
+            required
+          />
+        </div>
+        <div className="gf-form">
+          <FormField
             label="Bucket"
             labelWidth={10}
             inputWidth={20}
@@ -125,6 +136,7 @@ export class ConfigEditor extends PureComponent<Props, State> {
         orgId={options.orgId}
         dsId={options.id}
         bucket={jsonData.bucket || ''}
+        endpoint={jsonData.endpoint || ''}
         region={jsonData.region || Regions[0].value}
       />,
     ];

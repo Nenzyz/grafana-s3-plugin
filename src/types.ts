@@ -44,6 +44,7 @@ export interface DataSourceOptions extends DataSourceJsonData {
   bucket: string;
   accessKey?: string;
   region: string;
+  endpoint?: string;
 }
 
 /**
@@ -110,4 +111,5 @@ export const Regions = [
   { label: 'Canada (Central)', value: 'ca-central-1' },
   { label: 'Middle East (Bahrain)', value: 'me-south-1' },
   { label: 'South America (São Paulo)', value: 'sa-east-1' },
+  { label: 'AWS Global', value: 'aws-global' },
 ];
